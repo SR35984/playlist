@@ -1,0 +1,45 @@
+<html>
+<head>
+	<title>User Show Page!</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+	 crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+	 crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+	 crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+	 crossorigin="anonymous"></script>
+</head>
+	<body>
+		<form action="<%= song_index_path %>" method="get">
+			<input type ='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'/>
+			<input type ="submit" style="margin-left:850px;" value="Dashboard"/>
+		</form>
+		<form action="<%= logout_user_path %>" method="post">
+			<input type ='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'/>
+			<input type ='hidden' name='_method' value='delete'/>
+			<input type ="submit" style="margin-left:950px;" value="Logout"/>
+		</form>
+		<div class="container">
+			<h3><%= @user.first_name %> <%= @user.last_name %>'s Playlist</h3>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">Artist</th>
+						<th scope="col">Title</th>
+						<th scope="col">Times Added</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @adds.each do |list| %>
+					<tr>
+						<td><%= list.song.artist %></td>
+						<td><%= list.song.title %></td>
+						<td><%= @user.adds.where(song_id: list.song.id).count %></td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>
